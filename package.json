@@ -6,8 +6,15 @@
     "name": "misbiheyv",
     "email": "mishagorkovenko1103@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/misbiheyv/intelli-buddy"
+  },
+  "bugs": "https://github.com/misbiheyv/intelli-buddy/issues",
   "license": "MIT",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
     "build": "tsc",
     "start": "tsc && node ./dist/index.js"
