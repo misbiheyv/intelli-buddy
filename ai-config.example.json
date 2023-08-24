@@ -1,0 +1,18 @@
+{
+	"request": {
+		"url": "your url",
+		"method": "post",
+		"headers": {"Auth": "token"},
+		"body": {
+			"model": "ChatGPT-4",
+			"content": "{{prompt}}"
+		}
+	},
+	"responsePath": "response.items.0.content",
+	"prompts": {
+		"foo": "Your prompt text"
+	},
+	"langs": {
+		"pt": "portuguese"
+	}
+}
