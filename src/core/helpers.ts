@@ -1,12 +1,19 @@
 /**
- * Returns value by string path
+ * Returns a value from the object using the string path
+ *
+ * @param obj
+ * @param path
  */
-export function getField(obj, path) {
+export function getField(obj: object, path: string) {
   return get(obj, path.split('.').reverse());
 
-  function get(obj, path) {
+  function get(obj: object, path: string[]) {
     const
       cur = path.pop();
+
+    if (cur == null) {
+      return undefined;
+    }
 
     if (path.length === 0) {
       return obj[cur];
@@ -16,4 +23,4 @@ export function getField(obj, path) {
       return get(obj[cur], path);
     }
   }
-};
+}

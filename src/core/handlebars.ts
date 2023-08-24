@@ -1,15 +1,14 @@
 import Handlebars from 'handlebars';
 import asyncHelpers from 'handlebars-async-helpers';
-
-import { request as requestBuddy, langs } from './ai-buddy';
+import {request as requestBuddy, langs, prompts} from './ai-buddy';
 
 const
   asyncHandlebars = asyncHelpers(Handlebars);
 
 /**
- * Improve the text grammar and translate if need it
+ * 
  */
-asyncHandlebars.registerHelper('ai', async function (...args) {
+asyncHandlebars.registerHelper('ai', async function (this: {showDiff: boolean}, ...args) {
   const
     originContent = await args.at(-1).fn(this),
     params = args.at(-1).hash;
@@ -17,23 +16,22 @@ asyncHandlebars.registerHelper('ai', async function (...args) {
   let
     prompt = '';
 
-  if (params.lang != null && langs[params.lang]) {
-    prompt += `Translate the text below on ${langs[params.lang]} language.`;
-  }
+  if (params.prompt == null) {
+    for (const [k, v] of Object.entries(prompts)) {
+      if (params[k] != null) {
+        prompt += ` ${Handlebars.compile(v)({lang: langs[params.lang]}).trim()}`;
+      }
+    }
 
-  if (params.improve != null) {
-    prompt += 'Improve text. Use original text language';
-  }
-
-  if (params.prompt != null) {
+  } else {
     prompt = params.prompt;
   }
 
   if (prompt === '') {
-    prompt = 'Fix grammar mistakes.';
+    prompt = prompts.basic;
   }
 
-  prompt += 'Return only the corrected text';
+  prompt += ' Return only the corrected text';
 
   const
     newCtx = await requestBuddy(`${prompt}:\n${originContent}`);
