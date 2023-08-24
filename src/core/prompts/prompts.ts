@@ -1,6 +1,9 @@
 import Store from '../store';
 import { Config } from '../config';
 
+/**
+ * Access to prompts store
+ */
 export default class PromptsStore extends Store<string, string> {
 	override get(key: string): CanUndef<string> {
 		this.updateStore();
@@ -12,6 +15,9 @@ export default class PromptsStore extends Store<string, string> {
 		return Object.fromEntries(this.store.entries());
 	}
 
+	/**
+	 * Updates store by values from the config
+	 */
 	protected updateStore(): void {
 		const
 			customPrompts = new Config().prompts;

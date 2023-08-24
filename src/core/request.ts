@@ -5,7 +5,7 @@ import Handlebars from 'handlebars';
 /**
  * Builds a fetch options from the `ai-config.json` and makes request
  *
- * @param {string} prompt
+ * @param prompt
  */
 export default async function request(prompt: string): Promise<string> {
 	const

@@ -20,3 +20,5 @@ export async function processFile(filePath: string, showDiff: boolean = false) {
 
 	writeFileSync(resolvedPath, processedData);
 }
+
+export type { AIConfig } from './core/config';

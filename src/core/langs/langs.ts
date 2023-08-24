@@ -1,6 +1,9 @@
 import Store from '../store';
 import { Config } from '../config';
 
+/**
+ * Access to languages store
+ */
 export default class LangStore extends Store<string, string> {
 	override get(key: string): CanUndef<string> {
 		this.updateStore();
