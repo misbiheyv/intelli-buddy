@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"target": "es5",
+		"module": "commonjs",
+		"downlevelIteration": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"allowJs": true,
+		"importHelpers": true,
+		"outDir": "dist",
+		"lib": ["dom", "esnext"],
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictPropertyInitialization": true,
+	},
+	"include": [
+		"src/**/*",
+		"index.d.ts"
+	]
+}

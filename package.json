@@ -1,0 +1,26 @@
+{
+  "name": "intelli-buddy",
+  "version": "1.0.0",
+  "description": "Your Smart Coding Friend",
+  "author": {
+    "name": "misbiheyv",
+    "email": "mishagorkovenko1103@gmail.com"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node ./dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "20.4.9",
+    "typescript": "5.1.6"
+  },
+  "peerDependencies": {
+    "tslib": "2.6.1"
+  },
+  "dependencies": {
+    "handlebars": "4.7.6",
+    "handlebars-async-helpers": "1.0.6"
+  }
+}

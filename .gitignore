@@ -1,0 +1,64 @@
+# IDE
+.idea
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# =========================
+# Operating System Files
+# =========================
+# OSX
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+.vscode
+
+# Dependencies
+/node_modules
+/.yalc
+/yalc.lock
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Temporary
+*.tmp
+*.gz
+/Releases-js
+/tmp
+/app-cache
+/app-std-cache
+/src/entries/tmp
+/db
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# custom
+dist
+ai-config.json
+node_modules
