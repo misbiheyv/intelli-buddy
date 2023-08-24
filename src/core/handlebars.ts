@@ -1,12 +1,14 @@
 import Handlebars from 'handlebars';
 import asyncHelpers from 'handlebars-async-helpers';
-import {request as requestBuddy, langs, prompts} from './ai-buddy';
+import request from './request';
+import prompts from './prompts';
+import langs from './langs';
 
 const
   asyncHandlebars = asyncHelpers(Handlebars);
 
 /**
- * 
+ * Resolves `{{\#ai}}...{{/ai}}` tags in template
  */
 asyncHandlebars.registerHelper('ai', async function (this: {showDiff: boolean}, ...args) {
   const
@@ -17,24 +19,24 @@ asyncHandlebars.registerHelper('ai', async function (this: {showDiff: boolean}, 
     prompt = '';
 
   if (params.prompt == null) {
-    for (const [k, v] of Object.entries(prompts)) {
+    Object.entries(prompts.getDict()).forEach(([k, v]) => {
       if (params[k] != null) {
-        prompt += ` ${Handlebars.compile(v)({lang: langs[params.lang]}).trim()}`;
+        prompt += ` ${Handlebars.compile(v)({lang: langs.get(params.lang)}).trim()}`;
       }
-    }
+    });
 
   } else {
     prompt = params.prompt;
   }
 
   if (prompt === '') {
-    prompt = prompts.basic;
+    prompt = prompts.get('basic')!;
   }
 
-  prompt += ' Return only the corrected text';
+  prompt += ' Return only the corrected text. Use original text language.';
 
   const
-    newCtx = await requestBuddy(`${prompt}:\n${originContent}`);
+    newCtx = await request(`${prompt}:\n${originContent}`);
 
   if (this.showDiff) {
     return `\n<<<<<<< ORIGINAL VERSION\n${originContent}\n=======\n${newCtx}\n>>>>>>> CORRECTED VERSION\n`;

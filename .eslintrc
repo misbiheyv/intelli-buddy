@@ -4,6 +4,9 @@
   "plugins": ["@typescript-eslint"],
 	"root": true,
   "rules": {
+    /* [Typescript] */
+    "@typescript-eslint/no-explicit-any": "off",
+
     /* [Possible Errors] */
     "comma-dangle": ["error", "only-multiline"],
     "no-cond-assign": ["error", "except-parens"],

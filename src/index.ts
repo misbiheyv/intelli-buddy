@@ -2,8 +2,6 @@ import path from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 
 import { asyncHandlebars } from './core/handlebars';
-import { langs } from './core/ai-buddy';
-
 
 /**
  * Processes the file and rewrites it with improvements
@@ -21,22 +19,4 @@ export async function processFile(filePath: string, showDiff: boolean = false) {
 		processedData = await template({showDiff});
 
 	writeFileSync(resolvedPath, processedData);
-}
-
-
-/**
- * Add languages to the dictionary e.g., {'pt': 'portuguese'}
- * After this, you can use them as shortcuts in templates: {{\#ai lang="pt"}}...{{\/ai}}
- *
- * @param dict
- */
-export function addLangs(dict: Dictionary) {
-	Object.assign(langs, dict);
-}
-
-/**
- * Returns the list of supported shortcuts languages
- */
-export function langsList() {
-	return Object.freeze({...langs});
 }
