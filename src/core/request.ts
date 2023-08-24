@@ -1,5 +1,5 @@
-import {getField} from './helpers';
-import { Config } from './config';
+import {getField} from 'core/helpers';
+import { Config } from 'core/config';
 import Handlebars from 'handlebars';
 
 /**

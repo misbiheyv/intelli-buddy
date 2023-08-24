@@ -1,7 +1,6 @@
 import path from 'path';
 import { readFileSync, writeFileSync } from 'fs';
-
-import { asyncHandlebars } from './core/handlebars';
+import { asyncHandlebars } from 'core/handlebars';
 
 /**
  * Processes the file and rewrites it with improvements
@@ -21,4 +20,4 @@ export async function processFile(filePath: string, showDiff: boolean = false) {
 	writeFileSync(resolvedPath, processedData);
 }
 
-export type { AIConfig } from './core/config';
+export type { AIConfig } from 'core/config';

@@ -1,5 +1,5 @@
-import Store from '../store';
-import { Config } from '../config';
+import Store from 'core/store';
+import { Config } from 'core/config';
 
 /**
  * Access to languages store

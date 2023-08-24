@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
 import asyncHelpers from 'handlebars-async-helpers';
-import request from './request';
-import prompts from './prompts';
-import langs from './langs';
+import request from 'core/request';
+import prompts from 'core/prompts';
+import langs from 'core/langs';
 
 const
   asyncHandlebars = asyncHelpers(Handlebars);
