@@ -6,7 +6,7 @@ import { asyncHandlebars } from 'core/handlebars';
  * Processes the file and rewrites it with improvements
  *
  * @param filePath
- * @param showDiff
+ * @param [showDiff]
  */
 export async function processFile(filePath: string, showDiff: boolean = false) {
 	const
@@ -24,7 +24,7 @@ export async function processFile(filePath: string, showDiff: boolean = false) {
  * Processes the content and returns it with improvements
  *
  * @param content
- * @param withDiff
+ * @param [withDiff]
  */
 export async function processData(content: string, withDiff: boolean = false): Promise<string> {
 

@@ -18,7 +18,7 @@ export default async function request(prompt: string): Promise<string> {
 			const
 				c = new Config().responseConfig;
 
-			if (getField(res, c.statusCodePath) < 300) {
+			if (getField(res, c.statusCodePath) === null || getField(res, c.statusCodePath) < 300) {
 				return getField(res, c.contentPath);
 			}
 

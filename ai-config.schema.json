@@ -1,0 +1,58 @@
+{
+	"properties": {
+		"$schema": {"type": "string"},
+		"request": {"$ref": "#/$defs/request-config"},
+		"response": {"$ref": "#/$defs/response-config"},
+		"prompts": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "string"
+			}
+		},
+		"langs": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "string"
+			}
+		}
+	},
+	"required": ["request", "response"],
+	"additionalProperties": false,
+
+	"$defs": {
+		"request-config": {
+			"type": "object",
+			"properties": {
+				"url": {
+					"type": "string"
+				},
+				"method": {
+					"type": "string"
+				},
+				"headers": {
+					"type": "object",
+					"additionalProperties": true
+				},
+				"body": {
+					"type": "object",
+					"additionalProperties": true
+				}
+			},
+			"required": ["url", "method"],
+			"additionalProperties": false
+		},
+		"response-config": {
+			"type": "object",
+			"properties": {
+				"contentPath": {"type": "string"},
+				"errorPath": {"type": "string"},
+				"statusCodePath": {"type": "string"}
+			},
+			"required": ["contentPath"],
+			"additionalProperties": false,
+			"dependentRequired": {
+				"statusCodePath": ["errorPath"]
+			}
+		}
+	}
+}

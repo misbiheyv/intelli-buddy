@@ -1,4 +1,5 @@
 {
+	"$schema": "ai-config.schema.json",
 	"request": {
 		"url": "your url",
 		"method": "post",
@@ -8,7 +9,11 @@
 			"content": "{{prompt}}"
 		}
 	},
-	"responsePath": "response.items.0.content",
+	"response": {
+		"contentPath": "response.items.0.content",
+		"errorPath": "response.error.message",
+		"statusCodePath": "response.statusCode"
+	},
 	"prompts": {
 		"foo": "Your prompt text"
 	},
