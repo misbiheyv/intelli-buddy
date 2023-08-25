@@ -13,9 +13,9 @@ export default async function request(prompt: string): Promise<string> {
 	const
 		{url, method, headers, body: rawBody} = new Config().requestConfig,
 		body = Handlebars.compile(JSON.stringify(rawBody))({prompt})
-			.replace(/\\/gu, '\\\\')
-			.replace(/\n/gu, '\\n')
-			.replace(/\t/gu, '\\t');
+			.replace(/\\/g, '\\\\')
+			.replace(/\n/g, '\\n')
+			.replace(/\t/g, '\\t');
 
 	return fetch(url, {headers, method, body})
 		.then((res) => res.json())
