@@ -1,39 +1,49 @@
 # intelli-buddy
-Этот пакет предоставляет помощника для работы с кодом
+
+This package provides helpers for working with code and documentation.
+
+# Overview
+
+To understand why it is needed and what problems it can solve, please see the [examples](https://github.com/misbiheyv/intelli-buddy/tree/main/examples) folder.
+
+Files *.input.[ext] - templates that are received as input.
+
+Files *.output.[ext] - corresponding processed files.
 
 # Setup
 ```bash
 npm i intelli-buddy
 ```
-Make an `ai-config.json` in the root of your project and connect [json schema](https://github.com/misbiheyv/intelli-buddy/blob/main/ai-config.schema.json). 
-It should help you to make a valid config:
+Make an `ai-config.json` in the root of your project.
+You can connect the [json schema](https://github.com/misbiheyv/intelli-buddy/blob/main/ai-config.schema.json). It should help you to make a valid config:
+
 ```json
 {
 	"$schema": "node_modules/intelli-buddy/ai-config.schema.json"
 }
 ```
 
-Then fill the config. You can see the example of config [here](https://github.com/misbiheyv/intelli-buddy/blob/main/ai-config.example.json) and look at the config structure  with more explanations [here](#config)
+Then you should fill the config. You can look at the [ai-config.example.json](https://github.com/misbiheyv/intelli-buddy/blob/main/ai-config.example.json) and at the [config structure](#config) for more explanations
 
-
-## API
+# API
 ## processFile(path: string, showDiff: boolean)
+Function accepts a path to the template file as input. Optionally, as a second argument, you can specify whether to display diffs or immediately overwrite the file.
 
-Чтобы была возможность выделять места, которые необходимо обработать, для работы с файлами, было решено поддержать тэг `{\{#ai}}...{\{/ai}}`
+To be able to highlight areas that need processing when working with files, it was decided to support the tag {{#ai}}any content{{/ai}}.
 
-Например, в тексте будут исправлены грамматические ошибки:
+For example, tag without any attrivutes will correct grammar errors in the text:
 ```js
-{\{#ai}}Внутри тэгов контент, который необходимо обработать{\{/ai}}
+{\{#ai}}Inside the tags is the content that needs processing{\{/ai}}
 ```
-Тэг поддерживает аттрибуты для указания промптов
+The tag supports attributes for specifying prompts.
 
 ### lang="ru|en"
-Аттрибут для перевода текста. Содержимое будет переведено на русский язык:
+Attribute for translating text. E.g. this content will be translated into the Russian language:
 ```js
-{{#ai lang="ru"}}Text for translation{{/ai}}
+{\{#ai lang="ru"}}Text for translation{\{/ai}}
 ```
 
-Поддержка кастомных языков реализуется через файл конфигурации:
+Custom language support is implemented through the configuration file:
 ```js
 // ai-config.json
 {
@@ -42,20 +52,20 @@ Then fill the config. You can see the example of config [here](https://github.co
 	}
 }
 ```
-Содержимое будет переведено на португальский язык:
+The content will be translated into the Portuguese language:
 ```js
 // **/[fileName].[ext]
-{{#ai lang="pt"}}Text for improvement{{/ai}}
+{\{#ai lang="pt"}}Text for improvement{\{/ai}}
 ```
 
 ### prompt="Custom prompt"
-Аттрибут, в котором вы можете написать свой промпт. Содержимое будет переведено на португальский язык:
+An attribute in which you can write your own prompt. For example, this content will be translated into the Portuguese language:
 ```js
-{{#ai prompt="translate text to portuguese"}}Text for translation{{/ai}}
+{\{#ai prompt="translate text to portuguese"}}Text for translation{\{/ai}}
 ```
 
 ### customPromptName="true"
-Поддержка полностью кастомных аттрибутов через файл конфигурации:
+Support for fully custom attributes through the configuration file
 ```js
 // ai-config.json
 {
@@ -64,91 +74,89 @@ Then fill the config. You can see the example of config [here](https://github.co
 	}
 }
 ```
-Вернет функцию, суммирующую числа на js:
+Returns a function that adds up numbers in JavaScript:
 ```js
 // **/your-file.ext
-{{#ai func="true"}}summarize numbers{{/ai}}
+{\{#ai func="true"}}summarize numbers{\{/ai}}
 ```
 
 ## processData(content: string)
-Функция принимает контент, и возвращает ответ с указанного в конфиге эндпоинта
+The function takes content and returns the parsed response from the specified endpoint in the config without support for tag syntax
 
-# <a id="config"></a>Структура ai-config.json
-Конфиг поддерживает 4 поля на верхнем уровне (обязательные: request, response):
+# <a id="config"></a>`ai-config.json` structure
+Config provides 4 top-level fields:
 ```json
 {
-	"request": {...},
-	"response": {...},
-	"prompts": {...},
-	"langs": {...}
+	"request": {},
+	"response": {},
+	"prompts": {},
+	"langs": {}
 }
 ```
-- request - содежрит информацию о запросе
-- response - содежрит информацию о том, как распарсить ответ
-- prompts? - опционально, ваши кастомные шорткаты с промпами
-- langs? - опционально, ваши кастомные шорткаты с языками
+- [request](#request) - contains a request information
+- [response](#response) - contains information about response parsing
+- [prompts](#prompts)? - optional, custom prompts
+- [langs](#langs)? - optional, additional langs
 
-### Структура поля `request`
-Поддерживает 4 поля для построения запроса
+### <a id="request"></a>`request` field structure
+Provides 4 fields for a request building
 ```json
 {
 	"url": "string",
 	"method": "post",
-	"headers": {...},
+	"headers": {
+		"Auth": "token"
+	},
 	"body": {
-		... ,
 		"foo": "{\{prompt}}",
-		...
 	}
 }
 ```
-- url - url вашего эндпоинта
-- method - метод HTTP запроса POST | PUT | GET
-- headers - заголовки вашего запроса
-- body - тело вашего запроса
-	- Для обозначения места, куда должен быть вставлен сгенерированный промпт используйте плейсхолдер `{\{prompt}}`
+- url - contains the endpoint url
+- method - contains the HTTP request method: POST | PUT
+- headers - contains dictionary of the request headers
+- body - contains the request body
+	- To indicate the place where the generated prompt will be inserted, use the placeholder `{\{prompt}}`
 
-### Структура поля `response`
-Поддерживает 3 поля для информации о парсинге ответа
+### <a id="response"></a>`response` field structure
+Provides 4 fields with information for response parsing
 ```json
 {
-	"contentPath": "...",
-	"errorPath": "...",
-	"statusCodePath": "...",
-	"successStatus": [200, 201, ...]
+	"contentPath": "path.to.content",
+	"errorPath": "path.to.error",
+	"statusCodePath": "path.tp.statusCode",
+	"successStatus": [200, 201]
 }
 ```
-- contentPath - строка с указанием пути
-- errorPath - строка с указанием пути для вывода ошибки
-- statusCodePath - строка с указанием пути для проверки статуса ответа
-- successStatus - перечень статусов, которые считаются успешным ответом
+- contentPath - string path to response content
+- errorPath - string path to response error text
+- statusCodePath - string path to response statusCode
+- successStatus - list of successful status codes
 
-### Поле `prompts`
-#### Структура:
-Словарь, где ключ и значение - строки
+### <a id="prompts"></a>`prompts` field structure
+Dictionary where both key and value are strings
 ```json
 {
 	"func": "Generate js function by description:"
 }
 ```
-#### Назначение:
-После добавления появляется возможность использовать кастомный аттрибут в шаблонах
+After adding entries, you have the ability to use custom attributes in the tag:
 ```js
-{\{#ai func="true"}}суммирование чисел{\{/ai}}
+{\{#ai func="true"}}Summation of numbers{\{/ai}}
 ```
-После обработке будет сгенерирована функция суммирования чисел на js
+A function for summing numbers in JavaScript will be generated, as specified in our prompt.
 
-### Поле `langs`
-#### Структура:
-Словарь, где ключ и значение - строки
+### <a id="langs"></a>`langs` field structure
+Dictionary where both key and value are strings
 ```json
 {
 	"pt": "portuguese"
 }
 ```
-#### Назначение:
-После добавления кастомного языка появляется возможность указывать его ключ в аттрибуте `lang`
+
+After adding a custom language, you have the ability to specify its key in the `lang` attribute
+
 ```js
 {\{#ai lang="pt"}}Text for translation{\{/ai}}
 ```
-Текст будет переведен на португальский
+Text will be translated into portuguese

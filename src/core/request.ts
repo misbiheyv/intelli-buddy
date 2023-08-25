@@ -31,7 +31,7 @@ export default async function request(prompt: string): Promise<string> {
 				getField(res, c.errorPath) &&
 				!successStatus.includes(Number(getField(res, c.statusCodePath)))
 			) {
-				console.error(getField(res, c.errorPath));
+				console.error(new Error(getField(res, c.errorPath)));
 				return errorMessage;
 			}
 
