@@ -1,5 +1,4 @@
 {
-	"$schema": "ai-config.schema.json",
 	"request": {
 		"url": "your url",
 		"method": "post",
@@ -16,7 +15,7 @@
 		"successStatus": [200]
 	},
 	"prompts": {
-		"foo": "Your prompt text"
+		"func": "generate a js function by description:"
 	},
 	"langs": {
 		"pt": "portuguese"
