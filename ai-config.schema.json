@@ -46,7 +46,14 @@
 			"properties": {
 				"contentPath": {"type": "string"},
 				"errorPath": {"type": "string"},
-				"statusCodePath": {"type": "string"}
+				"statusCodePath": {"type": "string"},
+				"successStatus": {
+					"type": "array",
+					"uniqueItems": true,
+					"contains": {
+						"type": "integer"
+					}
+				}
 			},
 			"required": ["contentPath"],
 			"additionalProperties": false,

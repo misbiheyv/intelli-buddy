@@ -50,6 +50,7 @@
   },
   "files": [
     "dist",
-    "index.d.ts"
+    "index.d.ts",
+    "ai-config.schema.json"
   ]
 }

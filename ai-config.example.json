@@ -12,7 +12,8 @@
 	"response": {
 		"contentPath": "response.items.0.content",
 		"errorPath": "response.error.message",
-		"statusCodePath": "response.statusCode"
+		"statusCodePath": "response.statusCode",
+		"successStatus": [200]
 	},
 	"prompts": {
 		"foo": "Your prompt text"

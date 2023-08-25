@@ -21,7 +21,9 @@ export interface RequestConfig {
 export interface ResponseConfig {
 	contentPath: string;
 
-	errorPath: string;
+	errorPath?: string;
 
-	statusCodePath: string;
+	statusCodePath?: string;
+
+	successStatus?: number[];
 }

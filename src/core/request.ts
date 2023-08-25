@@ -21,14 +21,15 @@ export default async function request(prompt: string): Promise<string> {
 		.then((res) => res.json())
 		.then((res) => {
 			const
-				c = new Config().responseConfig;
+				c = new Config().responseConfig,
+				successStatus = c.successStatus ?? [200];
 
 			if (
 				c.statusCodePath &&
 				c.errorPath &&
 				getField(res, c.statusCodePath) &&
 				getField(res, c.errorPath) &&
-				(Number(getField(res, c.statusCodePath)) > 299 || Number(getField(res, c.statusCodePath)) < 200)
+				!successStatus.includes(Number(getField(res, c.statusCodePath)))
 			) {
 				console.error(getField(res, c.errorPath));
 				return errorMessage;

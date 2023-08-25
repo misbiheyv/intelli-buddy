@@ -1,6 +1,7 @@
 import path from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 import { asyncHandlebars } from 'core/handlebars';
+import request from 'core/request';
 
 /**
  * Processes the file and rewrites it with improvements
@@ -24,11 +25,9 @@ export async function processFile(filePath: string, showDiff: boolean = false) {
  * Processes the content and returns it with improvements
  *
  * @param content
- * @param [withDiff]
  */
-export async function processData(content: string, withDiff: boolean = false): Promise<string> {
-
-	return asyncHandlebars.compile(content)({showDiff: withDiff});
+export async function processData(content: string): Promise<string> {
+	return request(content);
 }
 
 export type { AIConfig } from 'core/config';
