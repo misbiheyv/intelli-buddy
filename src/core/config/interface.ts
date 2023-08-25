@@ -1,7 +1,7 @@
 export interface AIConfig {
-	request: Dictionary<any>;
+	request: RequestConfig;
 
-	responsePath: string;
+	response: ResponseConfig;
 
 	prompts?: Dictionary<string>;
 
@@ -16,4 +16,12 @@ export interface RequestConfig {
 	body: string;
 
 	headers?: Dictionary<string>;
+}
+
+export interface ResponseConfig {
+	contentPath: string;
+
+	errorPath: string;
+
+	statusCodePath: string;
 }

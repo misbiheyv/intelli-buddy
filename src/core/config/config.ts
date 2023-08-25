@@ -1,6 +1,6 @@
 import path from 'path';
 import {readFileSync} from 'fs';
-import type {AIConfig, RequestConfig} from './interface';
+import type {AIConfig, RequestConfig, ResponseConfig} from './interface';
 
 /**
  * Access to the configuration file `ai-config.json`
@@ -16,7 +16,7 @@ export default class Config {
 	}
 
 	/**
-	 * Request`s configuration
+	 * Request configuration
 	 */
 	get requestConfig(): RequestConfig {
 		const
@@ -26,10 +26,10 @@ export default class Config {
 	}
 
 	/**
-	 * Path to necessary field in response
+	 * Response configuration
 	 */
-	get responsePath(): string {
-		return this.config.responsePath;
+	get responseConfig(): ResponseConfig {
+		return this.config.response;
 	}
 
 	/**

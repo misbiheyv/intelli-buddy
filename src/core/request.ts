@@ -10,9 +10,21 @@ import Handlebars from 'handlebars';
 export default async function request(prompt: string): Promise<string> {
 	const
 		{url, method, headers, body: rawBody} = new Config().requestConfig,
-		body = Handlebars.compile(JSON.stringify(rawBody))({prompt}).replace(/\n/g, '\\n');
+		body = Handlebars.compile(JSON.stringify(rawBody))({prompt}).replace(/\n/gu, '\\n').replace(/\t/gu, '\\t');
 
-	return fetch(url, {method, headers, body})
+	return fetch(url, {headers, method, body})
 		.then((res) => res.json())
-		.then((res) => getField(res, new Config().responsePath));
+		.then((res) => {
+			const
+				c = new Config().responseConfig;
+
+			if (getField(res, c.statusCodePath) < 300) {
+				return getField(res, c.contentPath);
+			}
+
+			throw Error(`Server message:\n${getField(res, c.errorPath)}`);
+		})
+		.catch(err => {
+			console.error(err);
+		});
 }
