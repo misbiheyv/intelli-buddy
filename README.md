@@ -33,14 +33,14 @@ To be able to highlight areas that need processing when working with files, it w
 
 For example, tag without any attrivutes will correct grammar errors in the text:
 ```js
-{\{#ai}}Inside the tags is the content that needs processing{\{/ai}}
+{{#ai}}Inside the tags is the content that needs processing{{/ai}}
 ```
 The tag supports attributes for specifying prompts.
 
 ### lang="ru|en"
 Attribute for translating text. E.g. this content will be translated into the Russian language:
 ```js
-{\{#ai lang="ru"}}Text for translation{\{/ai}}
+{{#ai lang="ru"}}Text for translation{{/ai}}
 ```
 
 Custom language support is implemented through the configuration file:
@@ -55,13 +55,13 @@ Custom language support is implemented through the configuration file:
 The content will be translated into the Portuguese language:
 ```js
 // **/[fileName].[ext]
-{\{#ai lang="pt"}}Text for improvement{\{/ai}}
+{{#ai lang="pt"}}Text for improvement{{/ai}}
 ```
 
 ### prompt="Custom prompt"
 An attribute in which you can write your own prompt. For example, this content will be translated into the Portuguese language:
 ```js
-{\{#ai prompt="translate text to portuguese"}}Text for translation{\{/ai}}
+{{#ai prompt="translate text to portuguese"}}Text for translation{{/ai}}
 ```
 
 ### customPromptName="true"
@@ -77,7 +77,7 @@ Support for fully custom attributes through the configuration file
 Returns a function that adds up numbers in JavaScript:
 ```js
 // **/your-file.ext
-{\{#ai func="true"}}summarize numbers{\{/ai}}
+{{#ai func="true"}}summarize numbers{{/ai}}
 ```
 
 ## processData(content: string)
@@ -108,7 +108,7 @@ Provides 4 fields for a request building
 		"Auth": "token"
 	},
 	"body": {
-		"foo": "{\{prompt}}",
+		"foo": "{{prompt}}",
 	}
 }
 ```
@@ -116,7 +116,7 @@ Provides 4 fields for a request building
 - method - contains the HTTP request method: POST | PUT
 - headers - contains dictionary of the request headers
 - body - contains the request body
-	- To indicate the place where the generated prompt will be inserted, use the placeholder `{\{prompt}}`
+	- To indicate the place where the generated prompt will be inserted, use the placeholder `{{prompt}}`
 
 ### <a id="response"></a>`response` field structure
 Provides 4 fields with information for response parsing
@@ -142,7 +142,7 @@ Dictionary where both key and value are strings
 ```
 After adding entries, you have the ability to use custom attributes in the tag:
 ```js
-{\{#ai func="true"}}Summation of numbers{\{/ai}}
+{{#ai func="true"}}Summation of numbers{{/ai}}
 ```
 A function for summing numbers in JavaScript will be generated, as specified in our prompt.
 
@@ -157,6 +157,6 @@ Dictionary where both key and value are strings
 After adding a custom language, you have the ability to specify its key in the `lang` attribute
 
 ```js
-{\{#ai lang="pt"}}Text for translation{\{/ai}}
+{{#ai lang="pt"}}Text for translation{{/ai}}
 ```
 Text will be translated into portuguese
