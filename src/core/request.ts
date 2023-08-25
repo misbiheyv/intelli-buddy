@@ -1,6 +1,7 @@
-import {getField} from 'core/helpers';
-import { Config } from 'core/config';
 import Handlebars from 'handlebars';
+import {getField} from 'core/helpers';
+import {Config} from 'core/config';
+import {errorMessage} from 'core/const';
 
 /**
  * Builds a fetch options from the `ai-config.json` and makes request
@@ -8,9 +9,13 @@ import Handlebars from 'handlebars';
  * @param prompt
  */
 export default async function request(prompt: string): Promise<string> {
+	// TODO Refactor this method
 	const
 		{url, method, headers, body: rawBody} = new Config().requestConfig,
-		body = Handlebars.compile(JSON.stringify(rawBody))({prompt}).replace(/\n/gu, '\\n').replace(/\t/gu, '\\t');
+		body = Handlebars.compile(JSON.stringify(rawBody))({prompt})
+			.replace(/\\/gu, '\\\\')
+			.replace(/\n/gu, '\\n')
+			.replace(/\t/gu, '\\t');
 
 	return fetch(url, {headers, method, body})
 		.then((res) => res.json())
@@ -18,13 +23,17 @@ export default async function request(prompt: string): Promise<string> {
 			const
 				c = new Config().responseConfig;
 
-			if (getField(res, c.statusCodePath) === null || getField(res, c.statusCodePath) < 300) {
-				return getField(res, c.contentPath);
+			if (
+				c.statusCodePath &&
+				c.errorPath &&
+				getField(res, c.statusCodePath) &&
+				getField(res, c.errorPath) &&
+				(Number(getField(res, c.statusCodePath)) > 299 || Number(getField(res, c.statusCodePath)) < 200)
+			) {
+				console.error(getField(res, c.errorPath));
+				return errorMessage;
 			}
 
-			throw Error(`Server message:\n${getField(res, c.errorPath)}`);
-		})
-		.catch(err => {
-			console.error(err);
+			return getField(res, c.contentPath);
 		});
 }

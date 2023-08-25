@@ -2,9 +2,9 @@
  * Returns a value from the object using the string path
  *
  * @param obj
- * @param path
+ * @param [path]
  */
-export function getField(obj: object, path: string) {
+export function getField(obj: object, path: string = '') {
   return get(obj, path.split('.').reverse());
 
   function get(obj: object, path: string[]) {
