@@ -11,7 +11,7 @@ import {errorMessage} from 'core/const';
 export default async function request(prompt: string): Promise<string> {
 	// TODO Refactor this method
 	const
-		{url, method, headers, body: rawBody} = new Config().requestConfig,
+		{url, method, headers, body: rawBody} = Config.requestConfig,
 		body = Handlebars.compile(JSON.stringify(rawBody))({prompt})
 			.replace(/\\/g, '\\\\')
 			.replace(/\n/g, '\\n')
@@ -21,20 +21,20 @@ export default async function request(prompt: string): Promise<string> {
 		.then((res) => res.json())
 		.then((res) => {
 			const
-				c = new Config().responseConfig,
-				successStatus = c.successStatus ?? [200];
+				responseConfig = Config.responseConfig,
+				successStatus = responseConfig.successStatus ?? [200];
 
 			if (
-				c.statusCodePath &&
-				c.errorPath &&
-				getField(res, c.statusCodePath) &&
-				getField(res, c.errorPath) &&
-				!successStatus.includes(Number(getField(res, c.statusCodePath)))
+				responseConfig.statusCodePath &&
+				responseConfig.errorPath &&
+				getField(res, responseConfig.statusCodePath) &&
+				getField(res, responseConfig.errorPath) &&
+				!successStatus.includes(Number(getField(res, responseConfig.statusCodePath)))
 			) {
-				console.error(new Error(getField(res, c.errorPath)));
+				console.error(new Error(getField(res, responseConfig.errorPath)));
 				return errorMessage;
 			}
 
-			return getField(res, c.contentPath);
+			return getField(res, responseConfig.contentPath);
 		});
 }
