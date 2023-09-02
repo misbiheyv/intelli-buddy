@@ -3,7 +3,7 @@ import {readFileSync} from 'fs';
 import type {AIConfig, RequestConfig, ResponseConfig} from './interface';
 
 /**
- * Access to the configuration file `ai-config.json`
+ * Access to the configuration file `.ai-config.json`
  */
 export default abstract class Config {
 	/**
@@ -51,6 +51,6 @@ export default abstract class Config {
 	 * Updates local config
 	 */
 	protected static updateConfig() {
-		this.config = JSON.parse(readFileSync(path.resolve('ai-config.json'), 'utf-8'));
+		this.config = JSON.parse(readFileSync(path.resolve('.ai-config.json'), 'utf-8'));
 	}
 }

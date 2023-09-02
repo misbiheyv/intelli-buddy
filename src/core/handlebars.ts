@@ -8,7 +8,7 @@ const
   asyncHandlebars = asyncHelpers(Handlebars);
 
 /**
- * Resolves `{{\#ai}}...{{/ai}}` tags in template
+ * Resolves `{{#ai}}...{{/ai}}` tags in template
  */
 asyncHandlebars.registerHelper('ai', async function (this: {showDiff: boolean}, ...args) {
   const

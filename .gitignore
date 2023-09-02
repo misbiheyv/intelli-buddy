@@ -60,5 +60,5 @@ $RECYCLE.BIN
 
 # custom
 dist
-ai-config.json
 node_modules
+.ai-config.json
