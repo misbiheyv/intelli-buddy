@@ -20,7 +20,7 @@ describe('`processFile`', () => {
 		clearTestFile();
 	});
 
-	describe('Should resolve template using endpoint from `ai-config.json`', () => {
+	describe('Should resolve template using endpoint from `.ai-config.json`', () => {
 		test('Without `showDiffs`', async () => {
 			await processFile(testFilePath);
 			data = readFile(testFilePath);

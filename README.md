@@ -14,7 +14,7 @@ Files *.output.[ext] - corresponding processed files.
 ```bash
 npm i intelli-buddy
 ```
-Make an `ai-config.json` in the root of your project.
+Make an `.ai-config.json` in the root of your project.
 You can connect the [json schema](https://github.com/misbiheyv/intelli-buddy/blob/main/ai-config.schema.json). It should help you to make a valid config:
 
 ```json
@@ -45,7 +45,7 @@ Attribute for translating text. E.g. this content will be translated into the Ru
 
 Custom language support is implemented through the configuration file:
 ```js
-// ai-config.json
+// .ai-config.json
 {
 	"langs": {
 		"pt": "portuguese"
@@ -67,7 +67,7 @@ An attribute in which you can write your own prompt. For example, this content w
 ### customPromptName="true"
 Support for fully custom attributes through the configuration file
 ```js
-// ai-config.json
+// .ai-config.json
 {
 	"prompts": {
 		"func": "return js function by description:"
@@ -83,7 +83,7 @@ Returns a function that adds up numbers in JavaScript:
 ## processData(content: string)
 The function takes content and returns the parsed response from the specified endpoint in the config without support for tag syntax
 
-# <a id="config"></a>`ai-config.json` structure
+# <a id="config"></a>`.ai-config.json` structure
 Config provides 4 top-level fields:
 ```json
 {

@@ -4,7 +4,7 @@ import {Config} from 'core/config';
 import {errorMessage} from 'core/const';
 
 /**
- * Builds a fetch options from the `ai-config.json` and makes request
+ * Builds a fetch options from the `.ai-config.json` and makes request
  *
  * @param prompt
  */
