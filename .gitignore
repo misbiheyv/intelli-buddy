@@ -58,7 +58,13 @@ $RECYCLE.BIN
 !.yarn/versions
 .pnp.*
 
-# custom
+# Custom
 dist
 node_modules
+
+# Intelly-buddy config
 .ai-config.json
+.ai-config.*.json
+
+!.ai-config.example.json
+!.ai-config.schema.json

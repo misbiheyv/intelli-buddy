@@ -1,6 +1,6 @@
 import path from 'path';
 import { readFileSync, writeFileSync } from 'fs';
-import { asyncHandlebars } from 'core/handlebars';
+import { asyncCompile } from 'core/templates-processor';
 import request from 'core/request';
 
 /**
@@ -13,7 +13,7 @@ export async function processFile(filePath: string, showDiff: boolean = false) {
 	const
 		resolvedPath = path.resolve(filePath),
 		fileData = readFileSync(resolvedPath, 'utf-8'),
-		template = asyncHandlebars.compile(fileData);
+		template = asyncCompile(fileData);
 
 	const
 		processedData = await template({showDiff});

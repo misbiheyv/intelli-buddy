@@ -1,4 +1,4 @@
-import Handlebars from 'handlebars';
+import { syncCompile } from './templates-processor';
 import {getField} from 'core/helpers';
 import {Config} from 'core/config';
 import {errorMessage} from 'core/const';
@@ -12,7 +12,7 @@ export default async function request(prompt: string): Promise<string> {
 	// TODO Refactor this method
 	const
 		{url, method, headers, body: rawBody} = Config.requestConfig,
-		body = Handlebars.compile(JSON.stringify(rawBody))({prompt})
+		body = syncCompile(JSON.stringify(rawBody))({prompt})
 			.replace(/\\/g, '\\\\')
 			.replace(/\n/g, '\\n')
 			.replace(/\t/g, '\\t');
