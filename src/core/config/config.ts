@@ -12,6 +12,25 @@ export default abstract class Config {
 	protected static config: AIConfig;
 
 	/**
+	 * Store path to configuration file
+	 */
+	protected static configFilePath: string = '.ai-config.json';
+
+	/**
+	 * Path to the configuration file
+	 */
+	static get path() {
+		return Config.configFilePath;
+	}
+
+	/**
+	 * Sets path to the configuration file
+	 */
+	static set path(path : string) {
+		Config.configFilePath = path;
+	}
+
+	/**
 	 * Request configuration
 	 */
 	static get requestConfig(): RequestConfig {
@@ -51,6 +70,6 @@ export default abstract class Config {
 	 * Updates local config
 	 */
 	protected static updateConfig() {
-		this.config = JSON.parse(readFileSync(path.resolve('.ai-config.json'), 'utf-8'));
+		this.config = JSON.parse(readFileSync(path.resolve(this.path), 'utf-8'));
 	}
 }

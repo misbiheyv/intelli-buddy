@@ -1,6 +1,8 @@
 import path from 'path';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+
 import { asyncCompile } from 'core/templates-processor';
+import { Config } from 'core/config';
 import request from 'core/request';
 
 /**
@@ -28,6 +30,17 @@ export async function processFile(filePath: string, showDiff: boolean = false) {
  */
 export async function processData(content: string): Promise<string> {
 	return request(content);
+}
+
+/**
+ * Sets the path to the configuration file
+ *
+ * @param path
+ */
+export function setConfigPath(path: string) {
+	if (path != null && existsSync(path)) {
+		Config.path = path;
+	}
 }
 
 export type { AIConfig } from 'core/config';
