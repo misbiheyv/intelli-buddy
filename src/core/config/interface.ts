@@ -11,7 +11,7 @@ export interface AIConfig {
 export interface RequestConfig {
 	url: string;
 
-	method: 'get' | 'post' | 'put';
+	method: string;
 
 	body: string;
 
