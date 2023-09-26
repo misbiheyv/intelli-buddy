@@ -33,7 +33,7 @@ asyncHandlebars.registerHelper('ai', async function (this: {showDiff: boolean}, 
     prompt = prompts.get('basic')!;
   }
 
-  prompt += ' Return only the corrected text. Use original text language.';
+  prompt += ' Return only the processed text. You should use original text language.';
 
   const
     newCtx = await request(`${prompt}:\n${originContent}`);

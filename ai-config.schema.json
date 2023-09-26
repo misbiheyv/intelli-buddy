@@ -3,6 +3,7 @@
 		"$schema": {"type": "string"},
 		"request": {"$ref": "#/$defs/request-config"},
 		"response": {"$ref": "#/$defs/response-config"},
+		"tag": {"$ref": "#/$defs/tag-config"},
 		"prompts": {
 			"type": "object",
 			"additionalProperties": {
@@ -60,6 +61,31 @@
 			"dependentRequired": {
 				"statusCodePath": ["errorPath"]
 			}
+		},
+		"tag-config": {
+			"type": "object",
+			"properties": {
+				"opening": {
+					"type": "object",
+					"properties": {
+						"start": {"type": "string"},
+						"end": {"type": "string"}
+					},
+					"required": ["start", "end"],
+					"additionalProperties": false
+				},
+				"closing": {
+					"type": "object",
+					"properties": {
+						"start": {"type": "string"},
+						"end": {"type": "string"}
+					},
+					"required": ["start", "end"],
+					"additionalProperties": false
+				}
+			},
+			"required": ["opening", "closing"],
+			"additionalProperties": false
 		}
 	}
 }

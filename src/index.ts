@@ -43,4 +43,11 @@ export function setConfigPath(path: string) {
 	}
 }
 
+/**
+ * Path to the configuration file
+ */
+export function getConfigPath() {
+	return Config.path;
+}
+
 export type { AIConfig } from 'core/config';

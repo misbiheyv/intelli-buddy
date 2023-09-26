@@ -1,6 +1,6 @@
 import path from 'path';
 import {readFileSync} from 'fs';
-import type {AIConfig, RequestConfig, ResponseConfig} from './interface';
+import type {AIConfig, RequestConfig, ResponseConfig, Tag} from './interface';
 
 /**
  * Access to the configuration file `.ai-config.json`
@@ -64,6 +64,14 @@ export default abstract class Config {
 	static get langs(): CanUndef<Dictionary<string>> {
 		this.updateConfig();
 		return this.config.langs;
+	}
+
+	/**
+	 * Configuration of custom tags
+	 */
+	static get tags(): CanUndef<Tag> {
+		this.updateConfig();
+		return this.config.tag;
 	}
 
 	/**

@@ -6,6 +6,8 @@ export interface AIConfig {
 	prompts?: Dictionary<string>;
 
 	langs?: Dictionary<string>;
+
+	tag?: Tag;
 }
 
 export interface RequestConfig {
@@ -26,4 +28,16 @@ export interface ResponseConfig {
 	statusCodePath?: string;
 
 	successStatus?: number[];
+}
+
+export interface Tag {
+	opening: {
+		start: string;
+		end: string;
+	}
+
+	closing: {
+		start: string;
+		end: string;
+	}
 }
